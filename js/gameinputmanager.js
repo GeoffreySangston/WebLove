@@ -62,7 +62,7 @@ GameInputManager.prototype.listen = function() {
 			console.log(e);
 			e.preventDefault();
 			if(dragging){
-				if(e.x)
+				if(e.x){
 					var mouseX = e.x - gameContainer.offsetLeft;
 					var mouseY = e.y - gameContainer.offsetTop;
 				} else {
