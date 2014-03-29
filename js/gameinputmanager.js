@@ -62,8 +62,13 @@ GameInputManager.prototype.listen = function() {
 			console.log(e);
 			e.preventDefault();
 			if(dragging){
-				var mouseX = e.x - gameContainer.offsetLeft;
-				var mouseY = e.y - gameContainer.offsetTop;
+				if(e.x)
+					var mouseX = e.x - gameContainer.offsetLeft;
+					var mouseY = e.y - gameContainer.offsetTop;
+				} else {
+					var mouseX = e.pageX;
+					var mouseY = e.pageY;
+				}
 				var data = {
 							mouse : {x: mouseX, y: mouseY}, 
 							start : {x: clickStartX, y: clickStartY},

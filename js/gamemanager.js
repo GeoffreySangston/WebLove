@@ -94,7 +94,6 @@ GameManager.prototype.dragTile = function(data){
 		this.startTopScroll = document.body.scrollTop;
 	}
 	this.dragging = true;
-	console.log(element);
 	
 	if(!element){
 		counter++;
