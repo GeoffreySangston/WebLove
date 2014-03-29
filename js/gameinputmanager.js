@@ -29,9 +29,9 @@ GameInputManager.prototype.listen = function() {
 	nextButton.onclick = this.nextButtonClicked.bind(this);
 	startButton.onclick = this.startButtonClicked.bind(this);
 	
-	document.ontouchmove = function(e) {
+	/*document.ontouchmove = function(e) {
 		e.preventDefault();
-	};
+	};*/
 	var mousedown = ('ontouchstart' in document.documentElement ? "touchstart" : "mousedown");
 	var mouseup = ('ontouchstart' in document.documentElement ? "touchend" : "mouseup");
 	
