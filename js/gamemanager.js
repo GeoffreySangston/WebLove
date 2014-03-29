@@ -94,7 +94,8 @@ GameManager.prototype.dragTile = function(data){
 		this.startTopScroll = document.body.scrollTop;
 	}
 	this.dragging = true;
-	console.log(data);
+	console.log(element);
+	
 	if(!element){
 		counter++;
 		if(document.elementFromPoint(data.mouse.x + data.offsetLeft,data.mouse.y + data.offsetTop).classList[0] == "tile-inner"){
