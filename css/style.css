@@ -1,0 +1,137 @@
+html{
+	font-family:"Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.container{
+	width: 500px;
+	margin: 0 auto;
+}
+
+.gamecontainer{
+	display:block;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select:none;
+	-ms-user-select: none;
+	-ms-touch-action:none;
+	background: #BBADA0;
+	border-radius:6px;
+	border: solid 5px #BBADA0;
+	position:relative;
+
+}
+
+.gamemessage{
+	position: absolute;
+	width: 100%;
+	height:100%;
+	font-size:300px;
+	text-align:center;
+	z-index:10;
+	display:none; 
+	background-color: rgb(255, 255, 255);
+	cursor: default;
+}
+
+.gamemetabar{
+	margin-top:-100px;
+	background-color: #BBADA0;
+	border-radius:6px;
+	border: solid 5px #BBADA0;
+	height:40px;
+	width:80%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+
+.heading{
+	display:block;
+	overflow:auto;
+}
+
+.nextbutton{
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select:none;
+	-ms-user-select: none;
+	-ms-touch-action:none;
+	display:inline-block;
+	float:left;
+	
+	cursor: pointer;
+	width:100px;
+	height:90%;
+	text-align:center;
+	vertical-align:middle;
+	line-height:36px;
+	margin-top:2px;
+	margin-left:10%;
+	
+	color:white;
+	background: #FF0000;
+	border-radius:4px;
+}
+
+.scorescontainer{
+	float: right;
+}
+
+.scorecontainer,.bestcontainer{
+	display: inline-block;
+	background: #BBADA0;
+	font-size:20px;
+	overflow:auto;
+	font-weight:bold;
+	border-radius:5px;
+	color:white;
+	margin-top:8px;
+	text-align:center;
+	width:75px
+}
+
+#start{
+	font-size: 60px;
+    cursor: pointer;
+}
+.tile{
+	position: absolute;
+	text-align:center;
+	border-radius:6px;
+	cursor:pointer;
+
+	
+}
+
+.timer{
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select:none;
+	-ms-user-select: none;
+	-ms-touch-action:none;
+	float:right;
+	display:inline-block;
+	width:100px;
+	height:90%;
+	text-align:center;
+	vertical-align:middle;
+	line-height:36px;
+	margin-top:2px;
+	margin-right:10%;
+	
+	color:white;
+	background: #0000FF;
+	border-radius:4px;
+}
+
+.title{
+	display:block;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0;
+	float:left;
+}
