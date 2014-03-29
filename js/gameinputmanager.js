@@ -29,7 +29,7 @@ GameInputManager.prototype.listen = function() {
 	nextButton.onclick = this.nextButtonClicked.bind(this);
 	startButton.onclick = this.startButtonClicked.bind(this);
 
-	if('ontouchstart' in document.documentElement){
+	/*if('ontouchstart' in document.documentElement){
 		// Respond to swipe events
 		var touchStartClientX
 		var touchStartClientY;
@@ -81,7 +81,7 @@ GameInputManager.prototype.listen = function() {
 			}
 		
 		});
-	} else {
+	} else */{
 		var clickStartX;
 		var clickStartY;
 		var clickEndX;
