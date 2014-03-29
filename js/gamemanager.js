@@ -31,7 +31,7 @@ GameManager.prototype.start = function(){
 };
 GameManager.prototype.nextRound = function(){
 	this.score += this.timer.time;
-		this.timer.time = 50;
+		this.timer.time = 75;
 		this.storageManager.setTime(this.timer.serialize());
 		this.grid.createNewGrid();
 };
@@ -51,7 +51,7 @@ GameManager.prototype.setup = function(startNew){
 		this.score = previousState.score;
 	} else {
 		this.grid = new Grid(this.startingSize);
-		this.timer = new Timer(50, this.inputManager);
+		this.timer = new Timer(75, this.inputManager);
 		this.score = 0;
 	}
 	this.timer.start();
