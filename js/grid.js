@@ -7,23 +7,22 @@ function Grid(numRows, previousStateTiles, previousStateStartTiles){
 		this.size = numRows;
 	}
 	if(previousStateTiles){
-		this.tiles = previousStateTiles;
-		this.startTiles = previousStateStartTiles;
+		this.tiles = previousStateTiles.slice(0);
+		this.startTiles = previousStateStartTiles.slice(0);
 	} else {
 		this.createNewGrid();
-
 	}
 }
 
 Grid.prototype.initGrid = function(){
 	this.tiles = [];
 	this.genArray(this.tiles);
-	this.tiles = shuffle(this.tiles);
+	this.shuffle(this.tiles);
 	this.registerMates();
 
 };
 
-function shuffle(array) {
+Grid.prototype.shuffle = function(array) {
     var counter = array.length, temp, index;
 
     // While there are elements in the array
@@ -39,8 +38,6 @@ function shuffle(array) {
         array[counter] = array[index];
         array[index] = temp;
     }
-
-    return array;
 }
 
 Grid.prototype.genArray = function(array){
@@ -54,38 +51,37 @@ Grid.prototype.genArray = function(array){
 		}
 	}
 	for(var i = halfSize; i < 2*halfSize; i++){
-		array.push(array[i-halfSize]);
+		array.push(new Tile(array[i-halfSize].number));
 	}
 };
 
 Grid.prototype.registerMates = function(){
+
 	this.mateCount = 0;
 	for(var i = 0; i < this.size*this.size; i++){
+		this.tiles[i].i = i;
 		var adjacent = this.getAdjacentTileNumbers(i);
 		var isMated = 0;
 		for(var j = 0; j < adjacent.length; j++){
-		
 			if(this.tiles[i].number == this.tiles[adjacent[j]].number){
-				this.tiles[i].mated = true;
-				
 				isMated++;
 			} 
 		}
 		if(isMated == 0){
-			
-			this.tiles[i].mated = false; // not sure if this is necessary right now
+			this.tiles[i].mated = false; // for resets
 		} else {
+			this.tiles[i].mated = true;
 			this.mateCount++;
 		}
 	}
+	
 };
 Grid.prototype.createNewGrid = function(){
 	do{
 		this.initGrid();
 	} while(this.mateCount > 0);
 	this.startTiles = this.tiles.slice(0); // for retrying current level
-
-	location.reload(); // fixes tile mated glitch
+	//location.reload(); // fixes tile mated glitch
 };
 
 Grid.prototype.getAdjacentTileNumbers = function(tileIndex){

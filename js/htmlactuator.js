@@ -17,19 +17,25 @@ HTMLActuator.prototype.start = function(inGame){
 		this.gameMetaBar.style.Transition = "margin-top .5s";
 		this.gameMetaBar.style.MozTransition = "margin-top .5s";
 		this.gameMetaBar.style.marginTop = "20px";
+		
+		this.messageContainer.style.display = "none";
 	} else {
 		this.gameMetaBar.style.marginTop = "-60px";
 		this.messageContainer.style.display = "block";
 	}
 }
+
 HTMLActuator.prototype.actuate = function(grid,metadata){
 	var self = this;
 	window.requestAnimationFrame(function () {
 		self.clearContainer(self.tileContainer);
 		for(var i = 0; i < grid.size*grid.size; i++){
+			/*if(grid.tiles[i].mated){
+				console.log("ADDTILE: " + grid.tiles[i].number + " at " + i + " is mated: " + grid.tiles[i].mated);
+			}*/
 			self.addTile(grid.tiles[i],{x: i%grid.size, y: Math.floor(i/grid.size)},grid.size);
 		}
-
+		
 		self.updateScore(metadata.score);
 		self.updateBest(metadata.bestScore);
 		
@@ -66,8 +72,8 @@ HTMLActuator.prototype.addTile = function(tile, pos, size){
 	}
 	
 	this.applyClasses(wrapper,classes);
-	
 	inner.classList.add("tile-inner");
+	
 	if(tile.mated){
 		inner.innerHTML = '&#9829;';
 	} else {
@@ -153,7 +159,6 @@ HTMLActuator.prototype.addTile = function(tile, pos, size){
 	}
 	
 		
-	
 	this.tileContainer.appendChild(wrapper);
 }
 

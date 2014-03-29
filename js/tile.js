@@ -1,7 +1,7 @@
 function Tile(num){
 	this.number = num;
 	
-	this.mated = false;
+	this.mated;
 }
 
 Tile.prototype.serialize = function(){

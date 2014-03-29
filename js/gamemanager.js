@@ -15,19 +15,25 @@ function GameManager(size, InputManager, Actuator, StorageManager){
 	var timerState = this.storageManager.getTimerState();
 	if(timerState){
 		if(timerState.time <= 0){
-			this.actuator.start(false);
+			this.actuator.start(false); // starts new game
 		} else {
-			this.actuator.start(true);
+			this.actuator.start(true); // starts game at saved time
 		}
 		this.setup(false);
 	} else {
 		this.actuator.start(false);
+		//this.setup(true);
 	}
-
 }
 GameManager.prototype.start = function(){
-	this.actuator.start(true);
+	this.actuator.start(true,false);
 	this.setup(true);
+};
+GameManager.prototype.nextRound = function(){
+	this.score += this.timer.time;
+		this.timer.time = 50;
+		this.storageManager.setTime(this.timer.serialize());
+		this.grid.createNewGrid();
 };
 GameManager.prototype.tick = function(time){
 	this.actuator.updateTime(time);
@@ -45,7 +51,7 @@ GameManager.prototype.setup = function(startNew){
 		this.score = previousState.score;
 	} else {
 		this.grid = new Grid(this.startingSize);
-		this.timer = new Timer(101, this.inputManager);
+		this.timer = new Timer(50, this.inputManager);
 		this.score = 0;
 	}
 	this.timer.start();
@@ -55,19 +61,16 @@ GameManager.prototype.setup = function(startNew){
 //Sends the updated grid to the actuator
 GameManager.prototype.actuate = function(){
 	this.grid.registerMates();
-	if(this.grid.mateCount >= this.grid.size*this.grid.size){
-		this.score += this.timer.time;
-		this.timer.time = 101;
-		this.storageManager.setTime(this.timer.serialize());
-		this.grid.createNewGrid();
-	}
 
+	if(this.grid.mateCount >= this.grid.size*this.grid.size){ // make next puzzle and reset time
+		this.nextRound();
+	}
+	
 	if(this.storageManager.getBestScore() < this.score){
 		this.storageManager.setBestScore(this.score);
 	}
 	
 	this.storageManager.setGameState(this.serialize());
-	
 	this.actuator.actuate(this.grid, {
 		score:		this.score,
 		bestScore:	this.storageManager.getBestScore(),
