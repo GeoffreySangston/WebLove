@@ -28,6 +28,10 @@ GameInputManager.prototype.listen = function() {
 	
 	nextButton.onclick = this.nextButtonClicked.bind(this);
 	startButton.onclick = this.startButtonClicked.bind(this);
+	
+	document.ontouchmove = function(e) {
+		e.preventDefault();
+	};
 
 	/*if('ontouchstart' in document.documentElement){
 		// Respond to swipe events
