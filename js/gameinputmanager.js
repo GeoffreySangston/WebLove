@@ -61,6 +61,7 @@ GameInputManager.prototype.listen = function() {
 		gameContainer.addEventListener(this.eventTouchmove, function(e){
 			e.preventDefault();
 			if(dragging){
+				console.log(e.x);
 				var mouseX = e.x - gameContainer.offsetLeft;
 				var mouseY = e.y - gameContainer.offsetTop;
 				var data = {
