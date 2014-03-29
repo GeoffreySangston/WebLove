@@ -29,16 +29,17 @@ GameInputManager.prototype.listen = function() {
 	nextButton.onclick = this.nextButtonClicked.bind(this);
 	startButton.onclick = this.startButtonClicked.bind(this);
 	
-	/*document.ontouchmove = function(e) {
-		e.preventDefault();
-	};*/
-	var mousedown = ('ontouchstart' in document.documentElement ? "touchstart" : "mousedown");
-	var mouseup = ('ontouchstart' in document.documentElement ? "touchend" : "mouseup");
 	
-	/*if('ontouchstart' in document.documentElement){
-		// Respond to swipe events
-		var touchStartClientX
-		var touchStartClientY;
+	var clickStartX;
+	var clickStartY;
+	var clickEndX;
+	var clickEndY;
+
+	var mouseClickedInGame = false;
+	var dragging = false;
+
+	if('ontouchstart' in document.documentElement){
+
 		
 		gameContainer.addEventListener(this.eventTouchstart, function(e) {
 			if((!window.navigator.msPointerEnabled && e.touches.length > 1) || e.targetTouches > 1){
@@ -52,11 +53,24 @@ GameInputManager.prototype.listen = function() {
 				touchStartClientX = event.touches[0].clientX;
 				touchStartClientY = event.touches[0].clientY;
 			}
+			mouseClickedInGame = true;
+			dragging = true;
 			e.preventDefault();
 		});
 		
 		gameContainer.addEventListener(this.eventTouchmove, function(e){
 			e.preventDefault();
+			if(dragging){
+				var mouseX = e.x - gameContainer.offsetLeft;
+				var mouseY = e.y - gameContainer.offsetTop;
+				var data = {
+							mouse : {x: mouseX, y: mouseY}, 
+							start : {x: clickStartX, y: clickStartY},
+							offsetLeft : gameContainer.offsetLeft,
+							offsetTop : gameContainer.offsetTop
+							};
+				self.emit("drag", data);
+			}
 		});
 		
 		gameContainer.addEventListener(this.eventTouchend, function(e){
@@ -64,36 +78,27 @@ GameInputManager.prototype.listen = function() {
 				return; // ignore if still touching
 			}
 			
-			var touchEndClientX;
-			var touchEndClientY;
-			
-			if(window.navigator.msPointerEnabled){
-				touchEndClientX = event.pageX;
-				touchEndClientY = event.pageY;
-			} else {
-				touchEndClientX = event.changedTouches[0].clientX;
-				touchEndClientY = event.changedTouches[0].clientY;
-			}
-			
-			var dx = touchEndClientX - touchStartClientX;
-			var absDx = Math.abs(dx);
-			
-			var dy = touchEndClientY - touchStartClientY;
-			var absDy = Math.abs(dy);
-			
-			if(Math.max(absDx, absDy) > 10){
-				//var data = {x: 
-				//self.emit("swap", absD
+			if(mouseClickedInGame){
+				mouseClickedInGame = false;
+				dragging = false;
+				
+				var clickEndX = e.x - gameContainer.offsetLeft;
+				var clickEndY = e.y - gameContainer.offsetTop;
+				
+				var data = {
+							mouse : {x: e.x - gameContainer.offsetLeft, y: e.y - gameContainer.offsetTop}, 
+							start : {x: clickStartX, y: clickStartY},
+							offsetLeft : gameContainer.offsetLeft,
+							offsetTop : gameContainer.offsetTop
+							};
+				self.emit("dragEnd", data);
+
 			}
 		
 		});
-	} else */{
-		var clickStartX;
-		var clickStartY;
-		var clickEndX;
-		var clickEndY;
-		var mouseClickedInGame = false;
-		var dragging = false;
+	} else {
+		
+		
 		
 		
 		gameContainer.addEventListener('mousedown', function(e){
