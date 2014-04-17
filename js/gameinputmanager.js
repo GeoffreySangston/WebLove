@@ -108,7 +108,6 @@ GameInputManager.prototype.listen = function() {
 		
 		
 		gameContainer.addEventListener('mousedown', function(e){
-			console.log("DRAGGING MUFFA");
 			mouseClickedInGame = true;
 			dragging = true;
 			clickStartX = e.x - gameContainer.offsetLeft;
